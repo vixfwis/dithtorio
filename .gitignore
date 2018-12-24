@@ -1,0 +1,14 @@
+# Input/output files
+*.png
+*.jpg
+converted-*
+blueprint_*.txt
+
+# Build dirs
+build/*
+cmake-build-*
+dist/*
+dithtorio.egg-info/*
+
+# Cython generated file
+libdithtorio.cpp
