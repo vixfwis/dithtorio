@@ -56,6 +56,8 @@ void dither(Mat_<Vec3b>& img, vector<Vec3b>& palette, Mat_<uchar>& blueprint, Ma
             img(i + 1, j + 1) = Vec3b(saturate_cast<uchar>(d3[0]), saturate_cast<uchar>(d3[1]), saturate_cast<uchar>(d3[2]));
         }
     }
+    d("Adding 1 pix padding to transparent blueprint");
+    copyMakeBorder(blueprint, blueprint, 0, 0, 1, 0, BORDER_CONSTANT);
     img = Mat(img, Rect(1, 1, width, height));
 }
 
@@ -94,10 +96,14 @@ void dither(Mat_<Vec3b>& img, vector<Vec3b>& palette, Mat_<uchar>& blueprint) {
     img = Mat(img, Rect(1, 1, width, height));
 }
 
-void process_file(string srcFile, string dstFile, string bprFile, uchar threshold, uint split) {
-    d("Starting process_file with args", srcFile, dstFile, bprFile, (uint)threshold, split);
+void process_file(string srcFile, string dstFile, string bprFile, bool forceNT, uchar threshold, uint split) {
+    d("Starting processing file with args", srcFile, dstFile, bprFile, (uint)threshold, split);
     Mat _img;
     _img = imread(srcFile, IMREAD_UNCHANGED);
+    if(_img.empty()){
+        cerr << "Error reading source file: " << srcFile << endl;
+        return;
+    }
     d("Source matrix [rows] [cols] [channels]", _img.rows, _img.cols, _img.channels());
     Mat_<Vec3b> img3b;
     Mat_<Vec4b> img4b;
@@ -109,13 +115,24 @@ void process_file(string srcFile, string dstFile, string bprFile, uchar threshol
     Mat_<uchar> alpha;
     Mat_<uchar> blueprint(_img.rows, _img.cols, 255);
 
-    if(_img.channels() == 3) {
+    bool is3c = (_img.channels() == 3);
+    bool is4c = (_img.channels() == 4);
+    if(forceNT){
+        d("forceNT == true. Image will be processed as non-transparent");
+        if(is4c){
+            cvtColor(_img, _img, COLOR_BGRA2BGR);
+        }
+        is3c = true;
+        is4c = false;
+    }
+
+    if(is3c) {
         img3b = _img;
         dither(img3b, palette, blueprint);
         save_blueprint_to_file(blueprint, bprFile, split);
         imwrite(dstFile, img3b);
         d("Saving resulting image");
-    }else if(_img.channels() == 4){
+    }else if(is4c){
         d("Splitting 4 channel transparent image");
         Mat origChan[4];
         cv::split(_img, origChan);

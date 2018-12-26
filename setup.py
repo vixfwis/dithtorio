@@ -5,6 +5,12 @@ from Cython.Build import cythonize
 setup(
     name='dithtorio',
     version='1.0.0',
+    packages=['dithtorio'],
+    entry_points={
+    	'console_scripts': [
+    		'dithtorio=dithtorio.console_script:main'
+    	]
+    },
     ext_modules = cythonize([Extension(
             'libdithtorio',
             	[

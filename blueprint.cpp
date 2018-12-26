@@ -132,7 +132,7 @@ void save_blueprint_to_file(Mat_<uchar>& blueprint, string bprFile, uint split){
             }
             array_count++;
             d("fObject added to buffer [object] [array counter]", *ptr, array_count);
-            if(array_count > split){
+            if(array_count >= split){
                 bps.push_back(wrap_blueprint(buffer, array_count, bp_count++, offset));
                 offset = i;
                 array_count = 0;
@@ -201,79 +201,85 @@ vector<bool> get_bools() {
 }
 
 void preload_modded() {
-    palette = {
-            Vec3b(8, 12, 123),
-            Vec3b(8, 60, 123),
-            Vec3b(8, 125, 123),
-            Vec3b(8, 125, 8),
-            Vec3b(123, 125, 8),
-            Vec3b(123, 12, 8),
-            Vec3b(123, 12, 57),
-            Vec3b(123, 12, 123),
-            Vec3b(123, 125, 123),
-            Vec3b(8, 12, 8),
-            Vec3b(49, 48, 49),
-            Vec3b(99, 101, 99),
-            Vec3b(128, 93, 0),
-            Vec3b(66, 158, 206),
-            Vec3b(189, 203, 189)
-    };
-    fobjects = {
-            "refined-concrete-red",
-            "refined-concrete-orange",
-            "refined-concrete-yellow",
-            "refined-concrete-green",
-            "refined-concrete-cyan",
-            "refined-concrete-blue",
-            "refined-concrete-purple",
-            "refined-concrete-magenta",
-            "refined-concrete-white",
-            "refined-concrete-black",
-            "stone-path",
-            "refined-concrete",
-            "wooden-chest",
-            "transport-belt",
-            "stone-wall"
-    };
-    isEntity = {
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            true,
-            true
-    };
+    d("Starting loading modded palette");
+    palette.clear();
+    fobjects.clear();
+    isEntity.clear();
+    palette.push_back(Vec3b(8, 12, 123));
+    palette.push_back(Vec3b(8, 60, 123));
+    palette.push_back(Vec3b(8, 125, 123));
+    palette.push_back(Vec3b(8, 125, 8));
+    palette.push_back(Vec3b(123, 125, 8));
+    palette.push_back(Vec3b(123, 12, 8));
+    palette.push_back(Vec3b(123, 12, 57));
+    palette.push_back(Vec3b(123, 12, 123));
+    palette.push_back(Vec3b(123, 125, 123));
+    palette.push_back(Vec3b(8, 12, 8));
+    palette.push_back(Vec3b(49, 48, 49));
+    palette.push_back(Vec3b(99, 101, 99));
+    palette.push_back(Vec3b(128, 93, 0));
+    palette.push_back(Vec3b(66, 158, 206));
+    palette.push_back(Vec3b(189, 203, 189));
+    fobjects.push_back("refined-concrete-red");
+    fobjects.push_back("refined-concrete-orange");
+    fobjects.push_back("refined-concrete-yellow");
+    fobjects.push_back("refined-concrete-green");
+    fobjects.push_back("refined-concrete-cyan");
+    fobjects.push_back("refined-concrete-blue");
+    fobjects.push_back("refined-concrete-purple");
+    fobjects.push_back("refined-concrete-magenta");
+    fobjects.push_back("refined-concrete-white");
+    fobjects.push_back("refined-concrete-black");
+    fobjects.push_back("stone-path");
+    fobjects.push_back("refined-concrete");
+    fobjects.push_back("wooden-chest");
+    fobjects.push_back("transport-belt");
+    fobjects.push_back("stone-wall");
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(true);
+    isEntity.push_back(true);
+    isEntity.push_back(true);
+#ifdef DEBUG
+    for(uint i = 0; i < palette.size(); i++){
+        d("Loaded [color] [name] [isEntity]", palette[i], fobjects[i], isEntity[i]);
+    }
+#endif
 }
 
 void preload_vanilla() {
-    palette = {
-            Vec3b(49, 48, 49),
-            Vec3b(99, 101, 99),
-            Vec3b(128, 93, 0),
-            Vec3b(66, 158, 206),
-            Vec3b(189, 203, 189)
-    };
-    fobjects = {
-            "stone-path",
-            "refined-concrete",
-            "wooden-chest",
-            "transport-belt",
-            "stone-wall"
-    };
-    isEntity = {
-            false,
-            false,
-            true,
-            true,
-            true
-    };
+    d("Starting loading vanilla palette");
+    palette.clear();
+    fobjects.clear();
+    isEntity.clear();
+    palette.push_back(Vec3b(49, 48, 49));
+    palette.push_back(Vec3b(99, 101, 99));
+    palette.push_back(Vec3b(99, 101, 99));
+    palette.push_back(Vec3b(66, 158, 206));
+    palette.push_back(Vec3b(189, 203, 189));
+    fobjects.push_back("stone-path");
+    fobjects.push_back("refined-concrete");
+    fobjects.push_back("wooden-chest");
+    fobjects.push_back("transport-belt");
+    fobjects.push_back("stone-wall");
+    isEntity.push_back(false);
+    isEntity.push_back(false);
+    isEntity.push_back(true);
+    isEntity.push_back(true);
+    isEntity.push_back(true);
+#ifdef DEBUG
+    for(uint i = 0; i < palette.size(); i++){
+        d("Loaded [color] [name] [isEntity]", palette[i], fobjects[i], isEntity[i]);
+    }
+#endif
 }
