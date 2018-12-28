@@ -109,6 +109,7 @@ void process_file(string srcFile, string dstFile, string bprFile, bool forceNT, 
     Mat_<Vec4b> img4b;
     vector<Vec3b> palette = get_palette();
     if(palette.empty()) {
+        cerr << "Palette is empty! Loading modded preset.";
         preload_modded();
         palette = get_palette();
     }
