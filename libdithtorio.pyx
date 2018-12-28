@@ -1,7 +1,7 @@
 # cython: language_level=3
 cimport clibdithtorio
 
-def process_file(srcFile, dstFile, bprFile, forceNT = False, threshold = 127, split = 65536):
+def process_file(srcFile, dstFile, bprFile, forceNT = False, threshold = 0, split = 65536):
     cdef bytes srcFile_bytes = srcFile.encode()
     cdef char* srcFile_ptr = srcFile_bytes
 

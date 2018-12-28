@@ -9,6 +9,6 @@
 using namespace std;
 using namespace cv;
 
-void process_file(string srcFile, string dstFile, string bprFile, bool forceNT = false, uchar threshold = 127, uint split = 65536);
+void process_file(string srcFile, string dstFile, string bprFile, bool forceNT = false, uchar threshold = 0, uint split = 65536);
 
 #endif //DITHERING_DITHERING_H

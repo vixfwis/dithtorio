@@ -20,7 +20,7 @@ void find_nearest_color(vector<Vec3b>& palette, Vec3b& color, Vec3b& nearest_col
     }
 }
 
-void dither(Mat_<Vec3b>& img, vector<Vec3b>& palette, Mat_<uchar>& blueprint, Mat_<uchar> alpha, uchar threshold = 127) {
+void dither(Mat_<Vec3b>& img, vector<Vec3b>& palette, Mat_<uchar>& blueprint, Mat_<uchar> alpha, uchar threshold) {
     int width = img.size().width;
     int height = img.size().height;
     copyMakeBorder(img, img, 1, 1, 1, 1, BORDER_CONSTANT);
