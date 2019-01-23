@@ -6,6 +6,9 @@ setup(
     name='dithtorio',
     version='1.0.0',
     packages=['dithtorio'],
+    install_requires=[
+        'Click',
+    ],
     entry_points={
     	'console_scripts': [
     		'dithtorio=dithtorio.console_script:main'

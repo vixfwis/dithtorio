@@ -8,12 +8,15 @@ ZLib
 RapidJSON  
 `sudo apt-get install rapidjson-dev`
 
+Cython (for Python module build)  
+`pip install cython`
+
 ## Build
-- cmake: `mkdir build && cd build && cmake .. && make`
-- python/cython lib: `python setup.py install`
+- cmake: `mkdir build && cd build && cmake .. && make`  
+Note: cmake build has a very basic CLI controls and mostly used for development.
+- Python module: `python setup.py install`
 
 ## CLI usage
-Works with C++ executable or python entrypoint script from setuptools
-
+Assuming Python module build:  
 `dithtorio image.png`  
-gives `converted_image.png` and `blueprint_image.txt`
+gives `converted_image.png` and `blueprint_image.txt`. See `dithtorio --help` for more details.
