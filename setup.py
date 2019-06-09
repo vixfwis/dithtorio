@@ -18,14 +18,12 @@ setup(
             'libdithtorio',
             	[
 	            	'libdithtorio.pyx', 
-	            	'dithering.cpp',
+	            	'dithtorio.cpp',
 	            	'blueprint.cpp'
             	],
             depends=[
-	            	'dithering.h',
-	            	'blueprint.h',
-	            	'compression.h',
-	            	'base64.h'
+	            	'dithtorio.h',
+	            	'compression.h'
             ],
             #define_macros=[('DEBUG','0')],
             include_dirs=['/usr/include', '/usr/local/include', '/usr/local/include/opencv4'],

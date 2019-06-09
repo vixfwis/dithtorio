@@ -1,6 +1,9 @@
-#include "dithering.h"
-#include "blueprint.h"
-
+#include "dithtorio.h"
+#include "debug.h"
+#include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
 const Vec3i w(11, 59, 30);
 
 void find_nearest_color(vector<Vec3b>& palette, Vec3b& color, Vec3b& nearest_color, uchar& index) {
@@ -31,8 +34,8 @@ void dither(Mat_<Vec3b>& img, vector<Vec3b>& palette, Mat_<uchar>& blueprint, Ma
     uchar index;
 
     d("Starting dithering loop with transparency channel");
-    for (int j = 1; j < img.cols - 1; ++j) {
-        for (int i = 1; i < img.rows - 1; ++i) {
+    for (int i = 1; i < img.rows - 1; ++i) {
+        for (int j = 1; j < img.cols - 1; ++j) {
             if(alpha(i, j) < threshold) {
                 d("Skipping transparent pixel at [coords]", i, j);
                 continue;
@@ -65,15 +68,14 @@ void dither(Mat_<Vec3b>& img, vector<Vec3b>& palette, Mat_<uchar>& blueprint) {
     int width = img.size().width;
     int height = img.size().height;
     copyMakeBorder(img, img, 1, 1, 1, 1, BORDER_CONSTANT);
-
     Vec3b color;
     Vec3b nearest_color;
     Vec3i err, d0, d1, d2, d3;
     uchar index;
 
     d("Starting dithering loop");
-    for (int j = 1; j < img.cols - 1; ++j) {
-        for (int i = 1; i < img.rows - 1; ++i) {
+    for (int i = 1; i < img.rows - 1; ++i) {
+        for (int j = 1; j < img.cols - 1; ++j) {
             color = img(i, j);
             d("Got color with [coords] [BGR]", i, j, color);
             find_nearest_color(palette, color, nearest_color, index);
@@ -108,6 +110,7 @@ void process_file(string srcFile, string dstFile, string bprFile, bool forceNT, 
     Mat_<Vec3b> img3b;
     Mat_<Vec4b> img4b;
     vector<Vec3b> palette = get_palette();
+
     if(palette.empty()) {
         cerr << "Palette is empty! Loading modded preset.";
         preload_modded();
@@ -147,12 +150,11 @@ void process_file(string srcFile, string dstFile, string bprFile, bool forceNT, 
         d("Merging transparent channel with resulting image");
         merge(newClean, 4, img4b);
         save_blueprint_to_file(blueprint, bprFile, split);
-        imwrite(dstFile, img4b);
         d("Saving resulting 4 channel image");
+        imwrite(dstFile, img4b);
     }
 }
 
-// slapped together to provide some semblance of CLI control
 int main(int argc, char** argv) {
     if (argc == 1)
         return 1;

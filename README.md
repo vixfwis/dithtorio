@@ -1,6 +1,6 @@
 ## Requirements
-OpenCV 4.0.0 (might work with other versions, not tested though)  
-`sudo apt-get install libopencv-core-dev libopencv-imgproc-dev libopencv-imgcodecs-dev` or build it from source
+OpenCV 4  
+[Build instructions](https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html)
 
 ZLib  
 `sudo apt-get install zlib1g-dev`
@@ -12,11 +12,8 @@ Cython (for Python module build)
 `pip install cython`
 
 ## Build
-- cmake: `mkdir build && cd build && cmake .. && make`  
-Note: cmake build has a very basic CLI controls and mostly used for development.
 - Python module: `python setup.py install`
 
 ## CLI usage
-Assuming Python module build:  
 `dithtorio image.png`  
 gives `converted_image.png` and `blueprint_image.txt`. See `dithtorio --help` for more details.

@@ -1,12 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
-project(dithtorio)
+project(dithtorio VERSION 1.0.0 DESCRIPTION "Image to Factorio blueprint library")
 set(CMAKE_CXX_STANDARD 11)
-add_executable(dithtorio dithering.cpp dithering.h base64.h compression.h blueprint.cpp blueprint.h)
+add_executable(dithtorio dithtorio.cpp dithtorio.h compression.h blueprint.cpp debug.h)
 
 find_package(OpenCV REQUIRED)
 target_link_libraries(dithtorio ${OpenCV_LIBS})
-
-include_directories()
 
 find_library(ZLIB_LIBRARY z
         HINTS
