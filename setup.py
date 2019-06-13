@@ -4,7 +4,7 @@ from Cython.Build import cythonize
 
 setup(
     name='dithtorio',
-    version='1.0.0',
+    version='1.0.1',
     packages=['dithtorio'],
     install_requires=[
         'Click',

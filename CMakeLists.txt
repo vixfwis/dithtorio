@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(dithtorio VERSION 1.0.0 DESCRIPTION "Image to Factorio blueprint library")
+project(dithtorio VERSION 1.0.1 DESCRIPTION "Image to Factorio blueprint library")
 set(CMAKE_CXX_STANDARD 11)
 add_executable(dithtorio dithtorio.cpp dithtorio.h compression.h blueprint.cpp debug.h)
 
