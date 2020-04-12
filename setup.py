@@ -26,7 +26,7 @@ setup(
 	            	'compression.h'
             ],
             #define_macros=[('DEBUG','0')],
-            include_dirs=['/usr/include', '/usr/local/include', '/usr/local/include/opencv4'],
+            include_dirs=['/usr/include', '/usr/include/opencv4', '/usr/local/include', '/usr/local/include/opencv4'],
             library_dirs=['/usr/lib', '/usr/local/lib'],
             libraries=['opencv_core', 'opencv_imgcodecs', 'opencv_imgproc'],
             language='c++',
